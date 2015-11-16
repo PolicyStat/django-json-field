@@ -1,4 +1,8 @@
-# Django settings for test_project project.
+import os
+
+from django import VERSION
+
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -152,3 +156,6 @@ LOGGING = {
         },
     }
 }
+
+if VERSION >= (1, 6):
+    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
