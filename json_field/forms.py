@@ -2,10 +2,15 @@ try:
     import json
 except ImportError:  # python < 2.6
     from django.utils import simplejson as json
-from django.forms import fields, util
+try:
+    from django.forms import utils
+except ImportError:  # django < 1.7
+    from django.forms import util as utils
+from django.forms import fields
 
 import datetime
 from decimal import Decimal
+
 
 class JSONFormField(fields.Field):
 
@@ -13,8 +18,8 @@ class JSONFormField(fields.Field):
         from .fields import JSONEncoder, JSONDecoder
 
         self.evaluate = kwargs.pop('evaluate', False)
-        self.encoder_kwargs = kwargs.pop('encoder_kwargs', {'cls':JSONEncoder})
-        self.decoder_kwargs = kwargs.pop('decoder_kwargs', {'cls':JSONDecoder, 'parse_float':Decimal})
+        self.encoder_kwargs = kwargs.pop('encoder_kwargs', {'cls': JSONEncoder})
+        self.decoder_kwargs = kwargs.pop('decoder_kwargs', {'cls': JSONDecoder, 'parse_float': Decimal})
 
         kwargs.pop('max_length', None)
 
@@ -45,9 +50,9 @@ class JSONFormField(fields.Field):
             try:
                 value = json.dumps(eval(value, json_globals, json_locals), **self.encoder_kwargs)
             except Exception as e: # eval can throw many different errors
-                raise util.ValidationError(str(e))
+                raise utils.ValidationError(str(e))
 
         try:
             return json.loads(value, **self.decoder_kwargs)
         except ValueError as e:
-            raise util.ValidationError(str(e))
+            raise utils.ValidationError(str(e))
