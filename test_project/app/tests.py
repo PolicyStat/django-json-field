@@ -193,3 +193,9 @@ class JSONFieldTest(TestCase):
         # invisible for inspection.
         data = dict(inspect.getmembers(Test))
         self.assertIn('json', data)
+
+    def test_can_be_serialized(self):
+        from django.core import serializers
+        t1 = Test.objects.create(json='a')
+        data = serializers.serialize('json', [t1])
+        assert data

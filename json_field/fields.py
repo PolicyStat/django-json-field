@@ -185,7 +185,7 @@ class JSONField(models.TextField):
         return json.dumps(value, **self.encoder_kwargs)
 
     def value_to_string(self, obj):
-        return self.get_db_prep_value(self._get_val_from_obj(obj))
+        return self.get_db_prep_value(self.value_from_object(obj))
 
     def value_from_object(self, obj):
         return json.dumps(super(JSONField, self).value_from_object(obj), **self.encoder_kwargs)
