@@ -3,3 +3,4 @@
 *.db
 .tox
 *.egg-info
+.python-version

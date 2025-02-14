@@ -10,14 +10,14 @@ except IOError:
 
 setup(
     name = 'django-json-field',
-    version = '0.5.8',
+    version = '0.5.9',
     description = description,
     author = 'Derek Schaefer',
     author_email = 'derek.schaefer@gmail.com',
     url = 'https://github.com/derek-schaefer/django-json-field',
     long_description = long_description,
     packages = ['json_field'],
-    install_requires = ['django >= 1.2.7', 'python-dateutil', 'six >= 1.2.0'],
+    install_requires = ['django >= 2.2', 'python-dateutil', 'six >= 1.2.0'],
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
